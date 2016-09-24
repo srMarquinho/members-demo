@@ -30,7 +30,7 @@ class SchoolsController < ApplicationController
     @school = School.find(params[:id])
     @school.destroy
     flash[:notice] = 'School deleted successfully'
-    redirect_to '/schools'
+    redirect_to schools_path
   end
 
   private
