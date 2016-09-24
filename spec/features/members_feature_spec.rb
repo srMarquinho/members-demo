@@ -48,7 +48,7 @@ feature 'members' do
   end
 
   context 'deleting members' do
-    before { Member.create(name: 'Member Name') }
+    before { Member.create(name: 'Member Name', email: 'member@email.com') }
 
     scenario 'removes a member when a user clicks a delete link' do
       visit '/members'
@@ -56,6 +56,41 @@ feature 'members' do
       expect(page).not_to have_content 'Member Name'
       expect(page).to have_content 'Member deleted successfully'
     end
+  end
+
+  context 'validation' do
+    before { Member.create(name: 'Member Name Unique', email: 'member@email.com') }
+
+    scenario 'name is present' do
+      visit '/members'
+      click_link 'Add a member'
+      fill_in 'Name', with: ''
+      fill_in 'Email', with: 'member@email.com'
+      click_button 'Create Member'
+      expect(page).to have_content("Name can't be blank")
+      expect(current_path).to eq '/members'
+    end
+
+    scenario 'name is unique' do
+      visit '/members'
+      click_link 'Add a member'
+      fill_in 'Name', with: 'Member Name Unique'
+      fill_in 'Email', with: 'member@email.com'
+      click_button 'Create Member'
+      expect(page).to have_content("Name has already been taken")
+      expect(current_path).to eq '/members'
+    end
+
+    scenario 'email is valid' do
+      visit '/members'
+      click_link 'Add a member'
+      fill_in 'Name', with: 'Member Name'
+      fill_in 'Email', with: 'memberemailcom'
+      click_button 'Create Member'
+      expect(page).to have_content("Email is invalid")
+      expect(current_path).to eq '/members'
+    end
 
   end
+
 end

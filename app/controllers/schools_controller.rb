@@ -9,7 +9,11 @@ class SchoolsController < ApplicationController
 
   def create
     @school = School.create(school_params)
-    redirect_to schools_path
+    if @school.save
+      redirect_to schools_path
+    else
+      render 'new'
+    end
   end
 
   def show

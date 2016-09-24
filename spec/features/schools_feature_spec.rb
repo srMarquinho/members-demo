@@ -66,6 +66,27 @@ feature 'schools' do
       expect(page).not_to have_content 'School Name'
       expect(page).to have_content 'School deleted successfully'
     end
+  end
 
+  context 'validation' do
+    before { School.create(name: 'School Name Unique') }
+
+    scenario 'name is present' do
+      visit '/schools'
+      click_link 'Add a school'
+      fill_in 'Name', with: ''
+      click_button 'Create School'
+      expect(page).to have_content("Name can't be blank")
+      expect(current_path).to eq '/schools'
+    end
+
+    scenario 'name is unique' do
+      visit '/schools'
+      click_link 'Add a school'
+      fill_in 'Name', with: 'School Name Unique'
+      click_button 'Create School'
+      expect(page).to have_content("Name has already been taken")
+      expect(current_path).to eq '/schools'
+    end
   end
 end
