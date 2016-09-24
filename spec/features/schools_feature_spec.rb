@@ -39,6 +39,21 @@ feature 'schools' do
      expect(page).to have_content 'School_3'
      expect(current_path).to eq "/schools/#{school.id}"
     end
+  end
+
+  context 'editing schools' do
+    let!(:school){ School.create(name:'School_4') }
+
+    scenario 'let a user edit a school' do
+     visit '/schools'
+     click_link 'School_4'
+     click_link 'Edit'
+     fill_in 'Name', with: 'School_5'
+     click_button 'Update School'
+     expect(page).to_not have_content 'School_4'
+     expect(page).to have_content 'School_5'
+     expect(current_path).to eq "/schools/#{school.id}"
+    end
 
   end
 end
