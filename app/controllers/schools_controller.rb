@@ -26,6 +26,13 @@ class SchoolsController < ApplicationController
     redirect_to school_path(@school.id)
   end
 
+  def destroy
+    @school = School.find(params[:id])
+    @school.destroy
+    flash[:notice] = 'School deleted successfully'
+    redirect_to '/schools'
+  end
+
   private
   def school_params
     params.require(:school).permit(:name)
