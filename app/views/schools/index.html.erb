@@ -1,0 +1,9 @@
+<a href='/schools/new'>Add a school</a>
+
+<% if School.all.any? %>
+  <% School.all.each do |school| %>
+    <h2><%= school.name %></h2>
+  <% end %>
+<% else %>
+  <h1>No schools yet</h1>
+<% end %>
