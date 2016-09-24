@@ -4,6 +4,7 @@
   <% @members.all.each do |member| %>
     <h2><%= member.name %></h2>
     <p><%= member.email %></p>
+    <%= link_to "Edit", edit_member_path(member) %>
   <% end %>
 <% else %>
   <h1>No members yet</h1>

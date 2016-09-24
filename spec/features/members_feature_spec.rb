@@ -33,32 +33,20 @@ feature 'members' do
     end
   end
 
-  # context 'viewing members' do
-  #   let!(:member){ Member.create(name:'Member Name') }
-  #
-  #   scenario 'lets a user view a member' do
-  #    visit '/members'
-  #    click_link 'Member Name'
-  #    expect(page).to have_content 'Member Name'
-  #    expect(current_path).to eq "/members/#{member.id}"
-  #   end
-  # end
-  #
-  # context 'editing members' do
-  #   let!(:member){ Member.create(name:'Member Name') }
-  #
-  #   scenario 'let a user edit a member' do
-  #    visit '/members'
-  #    click_link 'Member Name'
-  #    click_link 'Edit'
-  #    fill_in 'Name', with: 'Member Edited'
-  #    click_button 'Update Member'
-  #    expect(page).to_not have_content 'Member Name'
-  #    expect(page).to have_content 'Member Edited'
-  #    expect(current_path).to eq "/members/#{member.id}"
-  #   end
-  # end
-  #
+  context 'editing members' do
+    let!(:member){ Member.create(name:'Member Name', email: 'member@email.com') }
+
+    scenario 'let a user edit a member' do
+     visit '/members'
+     click_link 'Edit'
+     fill_in 'Name', with: 'Member Edited'
+     click_button 'Update Member'
+     expect(page).to_not have_content 'Member Name'
+     expect(page).to have_content 'Member Edited'
+     expect(current_path).to eq "/members"
+    end
+  end
+
   # context 'deleting members' do
   #   before { Member.create(name: 'Member Name') }
   #
