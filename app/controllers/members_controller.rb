@@ -22,12 +22,12 @@ class MembersController < ApplicationController
     redirect_to members_path
   end
 
-  # def destroy
-  #   @member = Member.find(params[:id])
-  #   @member.destroy
-  #   flash[:notice] = 'Member deleted successfully'
-  #   redirect_to members_path
-  # end
+  def destroy
+    @member = Member.find(params[:id])
+    @member.destroy
+    flash[:notice] = 'Member deleted successfully'
+    redirect_to members_path
+  end
 
   private
   def member_params

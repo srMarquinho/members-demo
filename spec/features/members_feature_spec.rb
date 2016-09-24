@@ -47,16 +47,15 @@ feature 'members' do
     end
   end
 
-  # context 'deleting members' do
-  #   before { Member.create(name: 'Member Name') }
-  #
-  #   scenario 'removes a member when a user clicks a delete link' do
-  #     visit '/members'
-  #     click_link 'Member Name'
-  #     click_link 'Delete'
-  #     expect(page).not_to have_content 'Member Name'
-  #     expect(page).to have_content 'Member deleted successfully'
-  #   end
-  #
-  # end
+  context 'deleting members' do
+    before { Member.create(name: 'Member Name') }
+
+    scenario 'removes a member when a user clicks a delete link' do
+      visit '/members'
+      click_link 'Delete'
+      expect(page).not_to have_content 'Member Name'
+      expect(page).to have_content 'Member deleted successfully'
+    end
+
+  end
 end
