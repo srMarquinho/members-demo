@@ -10,11 +10,12 @@ feature 'members' do
   end
 
   context 'members have been added' do
-    before { Member.create(name: 'Member Name') }
+    before { Member.create(name: 'Member Name', email: 'member@email.com') }
 
     scenario 'display members' do
       visit '/members'
       expect(page).to have_content('Member Name')
+      expect(page).to have_content('member@email.com')
       expect(page).not_to have_content('No members yet')
     end
   end
@@ -24,12 +25,14 @@ feature 'members' do
       visit '/members'
       click_link 'Add a member'
       fill_in 'Name', with: 'Member Name'
+      fill_in 'Email', with: 'member@email.com'
       click_button 'Create Member'
-      expect(page).to have_content 'Member Name'
+      expect(page).to have_content('Member Name')
+      expect(page).to have_content('member@email.com')
       expect(current_path).to eq '/members'
     end
   end
-  
+
   # context 'viewing members' do
   #   let!(:member){ Member.create(name:'Member Name') }
   #
