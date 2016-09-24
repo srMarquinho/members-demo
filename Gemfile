@@ -35,6 +35,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'coveralls', require: false
+  gem 'simplecov'
 end
 
 group :development do
