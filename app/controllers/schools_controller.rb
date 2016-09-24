@@ -12,6 +12,10 @@ class SchoolsController < ApplicationController
     redirect_to '/schools'
   end
 
+  def show
+    @school = School.find(params[:id])
+  end
+
   private
   def school_params
     params.require(:school).permit(:name)
