@@ -1,7 +1,19 @@
+<% if @member.errors.any? %>
+  <section id="errors" >
+    <h2> <%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved: </h2>
+    <ul>
+      <% @member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
 <%= form_for @member do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :email %>
   <%= f.text_field :email %>
   <%= f.submit %>
+  <%= f.collection_check_boxes(:school_ids, @schools, :id, :name) if @schools %>
 <% end %>

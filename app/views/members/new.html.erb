@@ -15,4 +15,5 @@
   <%= f.label :email %>
   <%= f.text_field :email %>
   <%= f.submit %>
+  <%= f.collection_check_boxes(:school_ids, @schools, :id, :name) if @schools %>
 <% end %>

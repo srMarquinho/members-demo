@@ -5,6 +5,7 @@ class MembersController < ApplicationController
 
   def new
     @member = Member.new
+    @schools = School.all
   end
 
   def create
@@ -18,12 +19,16 @@ class MembersController < ApplicationController
 
   def edit
     @member = Member.find(params[:id])
+    @schools = School.all
   end
 
   def update
     @member = Member.find(params[:id])
-    @member.update(member_params)
-    redirect_to members_path
+    if @member.update(member_params)
+      redirect_to members_path
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -35,6 +40,6 @@ class MembersController < ApplicationController
 
   private
   def member_params
-    params.require(:member).permit(:name, :email)
+    params.require(:member).permit(:name, :email, :school_ids => [])
   end
 end
