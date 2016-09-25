@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20160924220730) do
     t.integer "member_id", null: false
     t.integer "school_id", null: false
     t.index ["member_id", "school_id"], name: "index_members_schools_on_member_id_and_school_id", using: :btree
-    t.index ["school_id", "member_id"], name: "index_members_schools_on_school_id_and_member_id", using: :btree
   end
 
   create_table "schools", force: :cascade do |t|
