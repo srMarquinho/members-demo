@@ -93,16 +93,6 @@ feature 'members' do
       expect(current_path).to eq '/members'
     end
 
-    scenario 'name is present' do
-      visit '/members'
-      click_link 'Edit'
-      fill_in 'Name', with: ''
-      fill_in 'Email', with: 'member@email.com'
-      click_button 'Update Member'
-      expect(page).to have_content("Name can't be blank")
-      expect(current_path).to eq member_path(member)
-    end
-
     scenario 'email is valid' do
       visit '/members'
       click_link 'Edit'
@@ -110,7 +100,7 @@ feature 'members' do
       fill_in 'Email', with: 'memberemailcom'
       click_button 'Update Member'
       expect(page).to have_content("Email is invalid")
-      expect(current_path).to eq member_path(member)
+      expect(current_path).to eq "/members/#{member.id}"
     end
   end
 
@@ -124,5 +114,4 @@ feature 'members' do
       expect(page).to have_content 'Member deleted successfully'
     end
   end
-
 end
