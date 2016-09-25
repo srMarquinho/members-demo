@@ -1,22 +1,11 @@
 require 'rails_helper'
 
-feature 'members' do
+feature 'MEMBERS' do
   context 'no members have been added' do
     scenario 'should display a prompt to add a member' do
       visit '/members'
       expect(page).to have_content 'No members yet'
       expect(page).to have_link 'Add a member'
-    end
-  end
-
-  context 'members have been added' do
-    before { Member.create(name: 'Member Name', email: 'member@email.com') }
-
-    scenario 'display members' do
-      visit '/members'
-      expect(page).to have_content('Member Name')
-      expect(page).to have_content('member@email.com')
-      expect(page).not_to have_content('No members yet')
     end
   end
 

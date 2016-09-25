@@ -1,21 +1,11 @@
 require 'rails_helper'
 
-feature 'schools' do
+feature 'SCHOOLS' do
   context 'no schools have been added' do
     scenario 'should display a prompt to add a school' do
       visit '/schools'
       expect(page).to have_content 'No schools yet'
       expect(page).to have_link 'Add a school'
-    end
-  end
-
-  context 'schools have been added' do
-    before { School.create(name: 'School Name') }
-
-    scenario 'display schools' do
-      visit '/schools'
-      expect(page).to have_content('School Name')
-      expect(page).not_to have_content('No schools yet')
     end
   end
 
@@ -54,10 +44,19 @@ feature 'schools' do
     let!(:school){ School.create(name:'School Name') }
 
     scenario 'lets a user view a school' do
-     visit '/schools'
-     click_link 'School Name'
-     expect(page).to have_content 'School Name'
-     expect(current_path).to eq "/schools/#{school.id}"
+      visit '/schools'
+      click_link 'School Name'
+      expect(page).to have_content 'School Name'
+      expect(current_path).to eq "/schools/#{school.id}"
+    end
+
+    scenario 'lets a user view a school AND its members' do
+      create_member_with_school
+      visit '/schools'
+      click_link 'School Name'
+      expect(page).to have_content 'School Name'
+      expect(page).to have_content 'Member Name'
+      expect(current_path).to eq "/schools/#{school.id}"
     end
   end
 
