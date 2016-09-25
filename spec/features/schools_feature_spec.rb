@@ -54,7 +54,7 @@ feature 'SCHOOLS' do
       visit '/schools'
       click_link 'School Name'
       expect(page).to have_content 'School Name'
-      expect(page).to have_content 'Member Name'
+      expect(page).to have_link 'Member Name'
       expect(current_path).to eq "/schools/#{school.id}"
     end
   end
