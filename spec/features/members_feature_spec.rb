@@ -11,7 +11,7 @@ feature 'MEMBERS' do
 
   context 'creating members' do
     before { School.create(name: 'School Name') }
-    before { Member.create(name: 'Member Name Unique', email: 'member@email.com') }
+    let!(:member){ Member.create(name:'Member Name Unique', email: 'member@email.com') }
 
     scenario 'prompts user to fill out a form, then displays the new member' do
       visit '/members'
@@ -20,8 +20,6 @@ feature 'MEMBERS' do
       fill_in 'Email', with: 'member@email.com'
       click_button 'Create Member'
       expect(page).to have_content('Member Name')
-      expect(page).to have_content('member@email.com')
-      expect(current_path).to eq '/members'
     end
 
     scenario 'can select a school' do
@@ -32,8 +30,6 @@ feature 'MEMBERS' do
       check 'School Name'
       click_button 'Create Member'
       expect(page).to have_content('Member Name')
-      expect(page).to have_content('member@email.com')
-      expect(current_path).to eq '/members'
     end
 
     scenario 'name is present' do
@@ -67,23 +63,47 @@ feature 'MEMBERS' do
     end
   end
 
+  context 'viewing members' do
+    let!(:member){ Member.create(name:'Member Name Unique', email:'member@email.com') }
+    before { School.create(name:'School Name') }
+
+    scenario 'lets a user view a member' do
+      visit '/members'
+      click_link 'Member Name'
+      expect(page).to have_content 'Member Name Unique'
+      expect(page).to have_content 'member@email.com'
+      expect(current_path).to eq "/members/#{member.id}"
+    end
+
+    scenario 'lets a user view a member AND its schools' do
+      create_member_with_school
+      visit '/members'
+      click_link 'Member Name'
+      expect(page).to have_content 'Member Name'
+      expect(page).to have_content 'member@email.com'
+      expect(page).to have_content 'School Name'
+    end
+  end
+
   context 'editing members' do
     let!(:member){ Member.create(name:'Member Name', email: 'member@email.com') }
-    before { School.create(name: 'School Name') }
+    before { School.create(name: 'School Name Unique') }
 
     scenario 'let a user edit a member' do
       visit '/members'
+      click_link 'Member Name'
       click_link 'Edit'
       fill_in 'Name', with: 'Member Edited'
       check 'School Name'
       click_button 'Update Member'
       expect(page).to_not have_content 'Member Name'
       expect(page).to have_content 'Member Edited'
-      expect(current_path).to eq '/members'
+      expect(current_path).to eq "/members/#{member.id}"
     end
 
     scenario 'email is valid' do
       visit '/members'
+      click_link 'Member Name'
       click_link 'Edit'
       fill_in 'Name', with: 'Member Name'
       fill_in 'Email', with: 'memberemailcom'
@@ -98,6 +118,7 @@ feature 'MEMBERS' do
 
     scenario 'removes a member when a user clicks a delete link' do
       visit '/members'
+      click_link 'Member Name'
       click_link 'Delete'
       expect(page).not_to have_content 'Member Name'
       expect(page).to have_content 'Member deleted successfully'

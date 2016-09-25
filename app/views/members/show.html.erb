@@ -1,0 +1,10 @@
+<h1><%= @member.name %></h1>
+<p>Email: <%= @member.email %></p>
+<%= link_to "Edit", edit_member_path(@member) %> | <%= link_to "Delete", member_path(@member), method: :delete %>
+
+<h3>Schools</h3>
+  <ul>
+    <% @member.schools.each do |school| %>
+      <li><%= school.name %></li>
+    <% end %>
+  </ul>

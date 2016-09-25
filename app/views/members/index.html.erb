@@ -2,10 +2,7 @@
 
 <% if @members.all.any? %>
   <% @members.all.each do |member| %>
-    <h2><%= member.name %></h2>
-    <p><%= member.email %></p>
-    <%= link_to "Edit", edit_member_path(member) %> | <%= link_to "Delete", member_path(member), method: :delete %>
-
+    <h2><%= link_to member.name, member_path(member) %></h2>
   <% end %>
 <% else %>
   <h1>No members yet</h1>

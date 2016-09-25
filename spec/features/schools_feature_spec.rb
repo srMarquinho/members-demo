@@ -18,7 +18,6 @@ feature 'SCHOOLS' do
       fill_in 'Name', with: 'School Name'
       click_button 'Create School'
       expect(page).to have_content 'School Name'
-      expect(current_path).to eq '/schools'
     end
 
     scenario 'name is present' do

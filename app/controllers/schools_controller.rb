@@ -10,7 +10,7 @@ class SchoolsController < ApplicationController
   def create
     @school = School.create(school_params)
     if @school.save
-      redirect_to schools_path
+      redirect_to school_path(@school.id)
     else
       render 'new'
     end
