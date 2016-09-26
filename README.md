@@ -8,6 +8,7 @@ This demo allows someone to add a new member with the fields “Name”, “Emai
 
 Extra features:
 - User can add, view, edit and delete schools, as well as members and its associated schools (following CRUD principles).
+- User can view a member from a selected school.
 - Name (unique and present) and email validations.
 - Flash error messages.
 
