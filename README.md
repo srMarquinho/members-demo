@@ -2,6 +2,8 @@
 
 # Members Demo
 
+Visit <https://members-demo.herokuapp.com> to see the result.
+
 The database stores information about its members. Each member can be associated with 1 or more school.
 
 This demo allows someone to add a new member with the fields “Name”, “Email Address” and "School" (selected from a list). The demo displays all members for a selected school.
@@ -20,9 +22,9 @@ I've considered separating concerns and avoiding dependencies, clean code and Te
 
 ## Configuration:
 
-Visit <https://members-demo.herokuapp.com> to see the result.
+Ruby `2.3.1`, Rails `5.0.0.1`.
 
-Alternatively, if you want to run in your own machine:
+If you want to run in your own machine:
 (assuming you have ruby, rails and postgresql installed)
 
 - Clone this repository `git clone https://github.com/srMarquinho/members-demo.git`
@@ -32,5 +34,7 @@ Alternatively, if you want to run in your own machine:
 - Run the server `rails s`
 - Visit <http://localhost:3000/>
 
-#### See Tests:
+#### Run Tests:
 - Run `rspec`
+
+![alt text](doc/tests.png)
