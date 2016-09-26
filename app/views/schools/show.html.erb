@@ -4,7 +4,7 @@
 <div class="box-list">
   <h3>Members</h3>
     <ul>
-      <% @school.members.each do |member| %>
+      <% @school.members.order(:name).each do |member| %>
         <li><%= link_to member.name, member_path(member) %></li>
       <% end %>
     </ul>

@@ -2,7 +2,7 @@
 <h1>Members listed:</h1>
 
 <% if @members.all.any? %>
-  <% @members.all.each do |member| %>
+  <% @members.all.order(:name).each do |member| %>
     <h2><%= link_to member.name, member_path(member) %></h2>
   <% end %>
 <% else %>

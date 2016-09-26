@@ -5,7 +5,7 @@
 <div class="box-list">
   <h3>Schools</h3>
     <ul>
-      <% @member.schools.each do |school| %>
+      <% @member.schools.order(:name).each do |school| %>
         <li><%= school.name %></li>
       <% end %>
     </ul>

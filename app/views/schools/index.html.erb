@@ -2,7 +2,7 @@
 <h1>Schools listed:</h1>
 
 <% if @schools.all.any? %>
-  <% @schools.all.each do |school| %>
+  <% @schools.all.order(:name).each do |school| %>
     <h2><%= link_to school.name, school_path(school) %></h2>
   <% end %>
 <% else %>
